@@ -1,0 +1,34 @@
+name: testes
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  testes:
+    runs-on: ${{ matrix.so }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        so: [ubuntu-latest, windows-latest, macos-latest]
+        node: ['18', '22', '24']
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      # O juiz e o git da propria maquina, e a versao dele importa: se um dia o
+      # xdiff mudar uma heuristica, e aqui que vai aparecer.
+      - name: qual git esta julgando
+        run: git --version
+
+      - name: testes
+        run: node --test testes/*.test.js
+
+      - name: o placar
+        run: node ferramentas/placar.js 200
