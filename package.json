@@ -1,0 +1,14 @@
+{
+  "name": "merge",
+  "version": "1.0.0",
+  "description": "Fusao de tres vias do zero, com a saida do git merge-file",
+  "main": "lib/index.js",
+  "bin": { "merge": "./merge.js" },
+  "scripts": {
+    "test": "node --test testes/*.test.js",
+    "placar": "node ferramentas/placar.js"
+  },
+  "license": "MIT",
+  "engines": { "node": ">=18" },
+  "private": false
+}
