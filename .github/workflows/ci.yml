@@ -27,8 +27,14 @@ jobs:
       - name: qual git esta julgando
         run: git --version
 
+      # O `shell: bash` e necessario: no PowerShell do runner do Windows o
+      # `testes/*.test.js` chega ao Node como texto literal, e ele procura um
+      # arquivo com asterisco no nome. Foi assim que o primeiro CI quebrou em
+      # um dos nove jobs -- os oito de Linux e macOS passaram.
       - name: testes
+        shell: bash
         run: node --test testes/*.test.js
 
       - name: o placar
+        shell: bash
         run: node ferramentas/placar.js 200
